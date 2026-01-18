@@ -2,23 +2,23 @@
 export const projects = [
   {
     id: "p1",
-    name: "Autonomous Parking Assist",
-    image: "/assets/projects/1.jpg",
-    shortDescription: "A self-parking system using sensors and computer vision. lololololololololololololololololololoooooooooooooooooooooooooooooooooooooooooooooooooooooooooolllllll",
-    people: ["Aman Kumar", "Priya Singh", "Rohan"]
+    name: "EV Fire Tanker Vehicle",
+    image: "/assets/projects/ev.jpeg",
+    shortDescription: "A battery-powered firefighting truck that carries water and equipment for rapid, low-emission fire response",
+    people: ["Maitreya Gaikwad", "Ishan", "Subodh", "Mohit"]
   },
   {
     id: "p2",
-    name: "EV Battery Health Monitor",
-    image: "/assets/projects/1.jpg",
-    shortDescription: "Monitoring battery health with predictive analytics.",
+    name: "Rail Inspection Module",
+    image: "/assets/projects/rail.jpeg",
+    shortDescription: "Autonomous module for real-time rail condition monitoring using computer vision",
     people: ["Sneha", "Aditya"]
   },
   {
     id: "p3",
-    name: "EV Battery Health Monitor",
-    image: "/assets/projects/1.jpg",
-    shortDescription: "Monitoring battery health with predictive analytics.",
+    name: "Axis Wind Turbine",
+    image: "/assets/projects/axis.jpeg",
+    shortDescription: "Vertical axis wind turbine optimized for low wind speed energy generation",
     people: ["Sneha", "Aditya"]
   }
   // add more projects as needed
@@ -148,23 +148,84 @@ export const council = [
 
 export const achievements = [
   {
-    id: "a1",
-    title: "1st place, Intercollege EV Hackathon",
-    text: "Team Tesla VNIT won with a prototype EV controller.",
+    id: "a3",
+    title: "Won Nagpur Finals – TiE-U Nagpur",
+    text: "Represented the club at the regional TiE-U exhibition, showcasing prototypes to industry experts.",
     smallImage: "/assets/achievements/bolt.png"
   },
   {
-    id: "a2",
-    title: "Best Project Award - TechFest",
-    text: "Awarded for innovation in energy-efficient design.",
+    id: "a4",
+    title: "Participation in Bharat Innovates Competition 2026",
+    text: "Competed at IIT Gandhinagar with startups and innovators from across India.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a5",
+    title: "Emergency Fire Fighting Vehicle – Fabrication & Procurement",
+    text: "Handled fabrication and procurement of components for the Emergency Fire Fighting Vehicle project.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a6",
+    title: "EV Tanker Core Development Initiation",
+    text: "Initiated core development of the EV Tanker and completed structural chassis fabrication.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a7",
+    title: "PCB Design Workshop for First-Year Students",
+    text: "Organized a PCB design workshop attended by 90+ first-year students.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a8",
+    title: "Participation under CBDE Program",
+    text: "Worked under the CBDE program with innovative ideas and practical problem-solving approaches.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a9",
+    title: "CAD Modelling and Simulation Workshop",
+    text: "Organized SOLIDWORKS CAD modelling and simulation workshops for first-year students.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a10",
+    title: "Completion and Handover of EV Tanker Project",
+    text: "Submitted a fully functional electric vehicle tanker to the institute.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a11",
+    title: "Participation in Robowars",
+    text: "Participated in Robowars conducted within the college.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a12",
+    title: "Participation in TiE-U Global Program",
+    text: "Participated in the global-level TiE-U event held in Jaipur in January 2026.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
+  {
+    id: "a13",
+    title: "Mini and Real-World Automobile Projects",
+    text: "Worked on automobile projects including differential modifications and other real-world applications.",
     smallImage: "/assets/achievements/bolt.png"
   }
 ];
 
+
 export const gallery = [
-  { id: "g1", src: "/assets/gallery/1.jpg", caption: "Workshop day" },
-  { id: "g2", src: "/assets/gallery/1.jpg", caption: "EV test-run" },
-  { id: "g4", src: "/assets/gallery/1.jpg", caption: "Team celebration" },
-  { id: "g5", src: "/assets/gallery/1.jpg", caption: "Team celebration" },
-  { id: "g6", src: "/assets/gallery/1.jpg", caption: "Team celebration" }
+  { id: "g1", src: "/assets/gallery/1.jpg", caption: "" },
+  { id: "g2", src: "/assets/gallery/2.jpg", caption: "" },
+  { id: "g3", src: "/assets/gallery/3.jpg", caption: "" },
+  { id: "g4", src: "/assets/gallery/4.jpg", caption: "" },
+  { id: "g5", src: "/assets/gallery/5.jpg", caption: "" },
+  { id: "g6", src: "/assets/gallery/Brake.png", caption: "" },
+  { id: "g3", src: "/assets/gallery/default.png", caption: "" },
+  { id: "g7", src: "/assets/gallery/Genaral.png", caption: "" },
+  { id: "g8", src: "/assets/gallery/axis.jpeg", caption: "" },
+  { id: "g9", src: "/assets/gallery/ev.jpeg", caption: "" },
+  { id: "g10", src: "/assets/gallery/rail.jpeg", caption: "" },
 ];

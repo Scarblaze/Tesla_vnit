@@ -3,11 +3,13 @@ import { createRoot } from 'react-dom/client'
 // import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
+import ScrollToTop from './component/ScrollToTop.jsx'
 import Hero from './component/Hero'
 
 createRoot(document.getElementById('root')).render(
   <>
   <BrowserRouter>
+  <ScrollToTop />
   <App />
   </BrowserRouter>
   

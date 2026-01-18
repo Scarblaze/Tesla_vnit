@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Nav.css'; // Import custom CSS for navbar
+import { Link, useLocation } from 'react-router-dom';
+import './Nav.css';
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const toggleNav = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleNavClick = (path) => {
+    // Close mobile menu on click
+    setIsOpen(false);
+
+    // If clicking the same route → scroll to top
+    if (location.pathname.toLowerCase() === path.toLowerCase()) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <nav className='navbar py-7 px-10 text-white flex items-center justify-between bg-black'>
-      <h1 className='text-2xl'>Tesla</h1> {/* Removed Tesla icon */}
+      <h1 className='text-2xl'>Tesla</h1>
 
       {/* Hamburger Menu Icon */}
       <button
@@ -24,14 +38,13 @@ function Nav() {
           fill='none'
           stroke='currentColor'
           viewBox='0 0 24 24'
-          xmlns='http://www.w3.org/2000/svg'
         >
           <path
             strokeLinecap='round'
             strokeLinejoin='round'
             strokeWidth='2'
             d='M4 6h16M4 12h16m-7 6h7'
-          ></path>
+          />
         </svg>
       </button>
 
@@ -43,12 +56,45 @@ function Nav() {
         role="navigation"
         aria-label="Main navigation"
       >
-        <Link className='nav-link block md:inline py-2 md:py-0 font-mono' to='/'>Home</Link>
-        <Link className='nav-link block md:inline py-2 md:py-0 font-mono' to='/Projects'>Projects</Link>
-        <Link className='nav-link block md:inline py-2 md:py-0 font-mono' to='/Council'>Council</Link>
-        <Link className='nav-link block md:inline py-2 md:py-0 font-mono' to='/Achieve'>Achievements</Link>
-        <Link className='nav-link block md:inline py-2 md:py-0 font-mono' to='/Gallery'>Gallery</Link>
-{/*         <Link className='nav-link block md:inline py-2 md:py-0 font-mono' to='/Learn'>Learn</Link> */}
+        <Link
+          className='nav-link block md:inline py-2 md:py-0 font-mono'
+          to='/'
+          onClick={() => handleNavClick('/')}
+        >
+          Home
+        </Link>
+
+        <Link
+          className='nav-link block md:inline py-2 md:py-0 font-mono'
+          to='/Projects'
+          onClick={() => handleNavClick('/Projects')}
+        >
+          Projects
+        </Link>
+
+        <Link
+          className='nav-link block md:inline py-2 md:py-0 font-mono'
+          to='/Council'
+          onClick={() => handleNavClick('/Council')}
+        >
+          Council
+        </Link>
+
+        <Link
+          className='nav-link block md:inline py-2 md:py-0 font-mono'
+          to='/Achieve'
+          onClick={() => handleNavClick('/Achieve')}
+        >
+          Achievements
+        </Link>
+
+        <Link
+          className='nav-link block md:inline py-2 md:py-0 font-mono'
+          to='/Gallery'
+          onClick={() => handleNavClick('/Gallery')}
+        >
+          Gallery
+        </Link>
       </div>
     </nav>
   );
