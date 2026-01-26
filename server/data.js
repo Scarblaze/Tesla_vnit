@@ -12,14 +12,14 @@ export const projects = [
     name: "Rail Inspection Module",
     image: "/assets/projects/rail.jpeg",
     shortDescription: "Autonomous module for real-time rail condition monitoring using computer vision",
-    people: ["Sneha", "Aditya"]
+    people: ["Rushikesh Galkar", "Bhuvan Meshram", "Banoth Saikiran", "Sohel Gajbhiye"]
   },
   {
     id: "p3",
     name: "Axis Wind Turbine",
     image: "/assets/projects/axis.jpeg",
     shortDescription: "Vertical axis wind turbine optimized for low wind speed energy generation",
-    people: ["Sneha", "Aditya"]
+    people: ["Aditya Mishra", "Mohit Surve", "Subodh Oraon"]
   }
   // add more projects as needed
 ];
@@ -33,7 +33,7 @@ export const council = [
     role: "President",
     phone: "+91-7319811130",
     email: "rahulkuswaharps7319@gmail.com",
-    profilePic: "/assets/council/aditya.jpg"
+    profilePic: "/assets/council/rahul.jpeg"
   },
 
   // Vice Presidents
@@ -43,7 +43,7 @@ export const council = [
     role: "Vice President",
     phone: "+91-8468909518",
     email: "sohelgajbhiye001@gmail.com",
-    profilePic: "/assets/council/aditya.jpg"
+    profilePic: "/assets/council/sohel.jpeg"
   },
   {
     id: "c11",
@@ -222,10 +222,10 @@ export const gallery = [
   { id: "g3", src: "/assets/gallery/3.jpg", caption: "" },
   { id: "g4", src: "/assets/gallery/4.jpg", caption: "" },
   { id: "g5", src: "/assets/gallery/5.jpg", caption: "" },
-  { id: "g6", src: "/assets/gallery/Brake.png", caption: "" },
+  { id: "g6", src: "/assets/gallery/rail.jpeg", caption: "" },
   { id: "g3", src: "/assets/gallery/default.png", caption: "" },
   { id: "g7", src: "/assets/gallery/Genaral.png", caption: "" },
   { id: "g8", src: "/assets/gallery/axis.jpeg", caption: "" },
   { id: "g9", src: "/assets/gallery/ev.jpeg", caption: "" },
-  { id: "g10", src: "/assets/gallery/rail.jpeg", caption: "" },
+  
 ];
