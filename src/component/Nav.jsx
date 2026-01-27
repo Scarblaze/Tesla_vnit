@@ -1,102 +1,165 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import './Nav.css';
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./Nav.css";
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const menuRef = useRef(null);
 
-  const toggleNav = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleNav = () => setIsOpen((prev) => !prev);
 
   const handleNavClick = (path) => {
-    // Close mobile menu on click
     setIsOpen(false);
 
-    // If clicking the same route → scroll to top
+    // If clicking same route -> scroll top
     if (location.pathname.toLowerCase() === path.toLowerCase()) {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
+  // ✅ Close on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [isOpen]);
+
+  // ✅ Lock background scroll when menu opens
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+    return () => (document.body.style.overflow = "auto");
+  }, [isOpen]);
+
   return (
-    <nav className='navbar py-7 px-10 text-white flex items-center justify-between bg-black'>
-      <h1 className='text-2xl'>Tesla</h1>
+    <>
+      <nav className="navbar text-white flex items-center justify-between bg-black">
+        {/* Logo */}
+        <h1 className="text-xl sm:text-2xl font-bold tracking-wide">
+  <Link
+    to="/"
+    onClick={() => handleNavClick("/")}
+    className="text-white no-underline hover:text-cyan-300 transition"
+  >
+    Tesla
+  </Link>
+</h1>
 
-      {/* Hamburger Menu Icon */}
-      <button
-        className='block md:hidden focus:outline-none'
-        onClick={toggleNav}
-        aria-label="Toggle navigation"
-      >
-        <svg
-          className='w-6 h-6'
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='2'
-            d='M4 6h16M4 12h16m-7 6h7'
-          />
-        </svg>
-      </button>
 
-      {/* Navigation Links */}
-      <div
-        className={`${
-          isOpen ? 'block' : 'hidden'
-        } md:flex md:items-center md:gap-10 absolute md:static w-full md:w-auto left-0 top-20 md:top-0 p-4 md:p-0 bg-black md:bg-transparent`}
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <Link
-          className='nav-link block md:inline py-2 md:py-0 font-mono'
-          to='/'
-          onClick={() => handleNavClick('/')}
+        {/* Hamburger */}
+        <button
+          className="block md:hidden focus:outline-none p-2"
+          onClick={toggleNav}
+          aria-label="Toggle navigation"
         >
-          Home
-        </Link>
+          <svg
+            className="w-7 h-7"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
 
-        <Link
-          className='nav-link block md:inline py-2 md:py-0 font-mono'
-          to='/Projects'
-          onClick={() => handleNavClick('/Projects')}
-        >
-          Projects
-        </Link>
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-10">
+          <Link className="nav-link font-mono" to="/" onClick={() => handleNavClick("/")}>
+            Home
+          </Link>
+          <Link
+            className="nav-link font-mono"
+            to="/Projects"
+            onClick={() => handleNavClick("/Projects")}
+          >
+            Projects
+          </Link>
+          <Link
+            className="nav-link font-mono"
+            to="/Council"
+            onClick={() => handleNavClick("/Council")}
+          >
+            Council
+          </Link>
+          <Link
+            className="nav-link font-mono"
+            to="/Achieve"
+            onClick={() => handleNavClick("/Achieve")}
+          >
+            Achievements
+          </Link>
+          <Link
+            className="nav-link font-mono"
+            to="/Gallery"
+            onClick={() => handleNavClick("/Gallery")}
+          >
+            Gallery
+          </Link>
+        </div>
+      </nav>
 
-        <Link
-          className='nav-link block md:inline py-2 md:py-0 font-mono'
-          to='/Council'
-          onClick={() => handleNavClick('/Council')}
-        >
-          Council
-        </Link>
+      {/* ✅ Slide-in Mobile Drawer */}
+      <div className={`mobile-drawer-overlay ${isOpen ? "show" : ""}`}>
+        <div ref={menuRef} className={`mobile-drawer ${isOpen ? "open" : ""}`}>
+          {/* Header inside drawer */}
+          <div className="drawer-header">
+            <h2 className="drawer-title">Tesla Menu</h2>
+            <button className="drawer-close-btn" onClick={() => setIsOpen(false)}>
+              ✕
+            </button>
+          </div>
 
-        <Link
-          className='nav-link block md:inline py-2 md:py-0 font-mono'
-          to='/Achieve'
-          onClick={() => handleNavClick('/Achieve')}
-        >
-          Achievements
-        </Link>
+          {/* Links */}
+          <div className="drawer-links">
+            <Link className="drawer-link" to="/" onClick={() => handleNavClick("/")}>
+              Home
+            </Link>
 
-        <Link
-          className='nav-link block md:inline py-2 md:py-0 font-mono'
-          to='/Gallery'
-          onClick={() => handleNavClick('/Gallery')}
-        >
-          Gallery
-        </Link>
+            <Link
+              className="drawer-link"
+              to="/Projects"
+              onClick={() => handleNavClick("/Projects")}
+            >
+              Projects
+            </Link>
+
+            <Link
+              className="drawer-link"
+              to="/Council"
+              onClick={() => handleNavClick("/Council")}
+            >
+              Council
+            </Link>
+
+            <Link
+              className="drawer-link"
+              to="/Achieve"
+              onClick={() => handleNavClick("/Achieve")}
+            >
+              Achievements
+            </Link>
+
+            <Link
+              className="drawer-link"
+              to="/Gallery"
+              onClick={() => handleNavClick("/Gallery")}
+            >
+              Gallery
+            </Link>
+          </div>
+        </div>
       </div>
-    </nav>
+    </>
   );
 }
 

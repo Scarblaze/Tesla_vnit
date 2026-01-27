@@ -147,6 +147,12 @@ export const council = [
 ];
 
 export const achievements = [
+   {
+    id: "a1",
+    title: "Tesla Club of Innovation Secures First Published Patent",
+    text: "Secured first published patent under the CBDE program for an Automatic Non-Intrusive Railway Track Inspection solution, aimed at improving railway safety and operational efficiency.",
+    smallImage: "/assets/achievements/bolt.png"
+  },
   {
     id: "a3",
     title: "Won Nagpur Finals – TiE-U Nagpur",
