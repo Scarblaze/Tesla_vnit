@@ -8,16 +8,20 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+
+  // ⭐ IMPORTANT for Vercel deployment
+  base: '/',
+
   server: {
-    port: 3000,  // Vite dev server port
+    port: 3000,
     proxy: {
       '/api': {
         target: 'http://localhost:4000',
         changeOrigin: true
       }
     }
-  },
-  build: {
-    outDir: 'client/dist'  // Explicitly set build output
   }
+
+  // ❌ DO NOT set outDir
+  // Default 'dist' is correct
 })
