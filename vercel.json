@@ -3,10 +3,13 @@
   "buildCommand": "cd client && npm install && npm run build",
   "functions": {
     "server/index.js": {
-      "includeFiles": ["client/dist/**", "public/**"]
+      "includeFiles": "client/dist/**,public/**"
     }
   },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/server/index.js" }
+    {
+      "source": "/(.*)",
+      "destination": "/server/index.js"
+    }
   ]
 }
