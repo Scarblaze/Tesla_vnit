@@ -1,16 +1,12 @@
 {
   "version": 2,
   "buildCommand": "cd client && npm install && npm run build",
-  "builds": [
-    {
-      "src": "server/index.js",
-      "use": "@vercel/node"
+  "functions": {
+    "server/index.js": {
+      "includeFiles": ["client/dist/**", "public/**"]
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server/index.js"
-    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/server/index.js" }
   ]
 }
