@@ -5,7 +5,7 @@ export const projects = [
     name: "EV Fire Tanker Vehicle",
     image: "/assets/projects/ev.jpeg",
     shortDescription: "A battery-powered firefighting truck that carries water and equipment for rapid, low-emission fire response",
-    people: ["Maitreya Gaikwad", "Ishan", "Subodh", "Mohit"]
+    people: ["Maitreya Gaikwad", "Ishan", "Mohit"]
   },
   {
     id: "p2",
@@ -27,6 +27,14 @@ export const projects = [
 // server/data.js
 // server/data.js
 export const council = [
+  {
+    id: "c0",
+    name: "Dr. Ramsha Karampuri",
+    role: "Professor Incharge",
+    phone: "+91-8143952895",
+    email: "ramshakarampuri@eee.vnit.ac.in",
+    profilePic: "/assets/council/ramsha.jpeg"
+  },
   {
     id: "c1",
     name: "Rahul kumar",
@@ -228,8 +236,15 @@ export const gallery = [
   { id: "g3", src: "/assets/gallery/3.jpg", caption: "" },
   { id: "g4", src: "/assets/gallery/4.jpg", caption: "" },
   { id: "g5", src: "/assets/gallery/5.jpg", caption: "" },
+
+  { id: "g14", src: "/assets/gallery/v1.mp4", caption: "" },
+  { id: "g12", src: "/assets/gallery/g1.jpeg", caption: "" },
+  { id: "g13", src: "/assets/gallery/g2.jpeg", caption: "" },  
+  { id: "g10", src: "/assets/gallery/default.png", caption: "" },
+
   { id: "g6", src: "/assets/gallery/rail.jpeg", caption: "" },
-  { id: "g3", src: "/assets/gallery/default.png", caption: "" },
+  { id: "g15", src: "/assets/gallery/v2.mp4", caption: "" },
+  
   { id: "g7", src: "/assets/gallery/Genaral.png", caption: "" },
   { id: "g8", src: "/assets/gallery/axis.jpeg", caption: "" },
   { id: "g9", src: "/assets/gallery/ev.jpeg", caption: "" },

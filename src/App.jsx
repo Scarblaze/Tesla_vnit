@@ -8,6 +8,7 @@ import Gallery from "./component/Gallery";
 import Learn from "./component/tesla-learn-page/src/App.jsx";
 import Nav from "./component/Nav";
 import Hero from "./component/Hero";
+import Workshop from "./component/Workshop";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/Council" element={<Council />} />
           <Route path="/Gallery" element={<Gallery />} />
           <Route path="/Learn" element={<Learn />} />
+          <Route path="/Workshop" element={<Workshop />} />
         </Routes>
 
         {/* Footer */}

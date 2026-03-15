@@ -1,128 +1,336 @@
+/* Nav.css */
 .navbar {
-  background-color: rgba(0, 0, 0, 0.85);
-  color: white;
   position: fixed;
+  top: 0; left: 0;
   width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1000;
+  /* Higher than any page content */
+  z-index: 99999;
+  height: 64px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,229,255,0.12);
+}
 
-  padding: 12px 16px;
-  border-radius: 0;
-  backdrop-filter: blur(10px);
+/* Animated sweep line */
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -100%;
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, #00e5ff 40%, #2563eb 60%, transparent);
+  animation: navSweep 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes navSweep {
+  0%   { left: -100%; }
+  50%  { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* ── LOGO ── */
+.nav-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-logo-img {
+  height: 32px;
+  width: auto;
+  filter: drop-shadow(0 0 8px rgba(0,229,255,0.6));
+  transition: filter 0.3s;
+}
+
+.nav-logo-link:hover .nav-logo-img {
+  filter: drop-shadow(0 0 16px rgba(0,229,255,1));
+}
+
+.nav-logo-text {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* ── DESKTOP LINKS — hidden by default, shown at 768px+ ── */
+.nav-links-desktop {
+  display: none;
+  align-items: center;
+  gap: 32px;
 }
 
 .nav-link {
-  color: white;
-  transition: transform 0.2s;
+  position: relative;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color 0.25s;
 }
 
-.nav-link:hover {
-  transform: scale(1.08);
+.nav-link::before {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  color: #00e5ff;
+  opacity: 0;
+  transition: opacity 0.25s;
+  text-shadow: 0 0 12px rgba(0,229,255,0.8);
 }
 
-/* ✅ Overlay (Backdrop) */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: #00e5ff;
+  box-shadow: 0 0 8px rgba(0,229,255,0.6);
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.nav-link:hover { color: transparent; }
+.nav-link:hover::before { opacity: 1; }
+.nav-link:hover::after  { width: 100%; }
+
+/* ── HAMBURGER — visible by default, hidden at 768px+ ── */
+.hamburger-btn {
+  /* Always a flex button on mobile */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid rgba(0,229,255,0.3);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.9);
+  transition: border-color 0.25s, box-shadow 0.25s, color 0.25s;
+  /* Ensure it's always on top within the navbar */
+  position: relative;
+  z-index: 1;
+  /* Minimum tap target */
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.hamburger-btn:hover,
+.hamburger-btn:focus {
+  border-color: #00e5ff;
+  color: #00e5ff;
+  box-shadow: 0 0 12px rgba(0,229,255,0.3);
+  outline: none;
+}
+
+/* ── MOBILE DRAWER OVERLAY
+   z-index 9001 = ABOVE navbar (9000)
+   This ensures the close button is always tappable ── */
 .mobile-drawer-overlay {
   position: fixed;
   inset: 0;
-  z-index: 999;
-
-  background: rgba(0, 0, 0, 0);
+  /* Above the navbar so the close button is tappable */
+  z-index: 100000;
   opacity: 0;
   visibility: hidden;
-
-  transition: opacity 0.3s ease, background 0.3s ease;
+  background: rgba(0,0,0,0);
+  transition: opacity 0.3s ease, visibility 0.3s ease, background 0.3s ease;
+  /* Prevent any pointer events when hidden */
+  pointer-events: none;
 }
 
-/* show overlay */
 .mobile-drawer-overlay.show {
   opacity: 1;
   visibility: visible;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: all;
 }
 
-/* ✅ Drawer */
+/* ── MOBILE DRAWER PANEL ── */
 .mobile-drawer {
   position: absolute;
-  top: 0;
-  right: 0;
-
+  top: 0; right: 0;
   height: 100%;
-  width: 80%;
-  max-width: 340px;
-
-  background: rgba(0, 0, 0, 0.95);
-  border-left: 1px solid rgba(34, 211, 238, 0.3);
-
+  width: 280px;
+  max-width: 85vw;
+  background: #020810;
+  border-left: 1px solid rgba(0,229,255,0.2);
   transform: translateX(100%);
-  transition: transform 0.3s ease;
-
-  padding: 18px;
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Ensure it's above the overlay backdrop */
+  position: absolute;
 }
 
-/* open drawer */
-.mobile-drawer.open {
-  transform: translateX(0%);
+/* Circuit grid texture */
+.mobile-drawer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Drawer Header */
+/* Glow line on left edge */
+.mobile-drawer::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px; height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,229,255,0.6) 30%,
+    rgba(37,99,235,0.6) 70%,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mobile-drawer.open { transform: translateX(0); }
+
+/* Drawer content sits above the pseudo-element textures */
+.drawer-header,
+.drawer-links {
+  position: relative;
+  z-index: 1;
+}
+
+/* Drawer header */
 .drawer-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(0,229,255,0.12);
 }
 
 .drawer-title {
-  color: #22d3ee;
-  font-size: 1.2rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #00e5ff;
+  text-shadow: 0 0 12px rgba(0,229,255,0.5);
 }
 
+/* Close button — large tap target */
 .drawer-close-btn {
-  background: rgba(255, 0, 0, 0.15);
-  color: white;
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,45,85,0.1);
+  border: 1px solid rgba(255,45,85,0.35);
+  color: rgba(255,255,255,0.8);
   width: 40px;
   height: 40px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1.1rem;
-  transition: transform 0.2s;
+  font-size: 1rem;
+  transition: all 0.25s;
+  /* Big enough tap target on mobile */
+  min-width: 40px;
+  min-height: 40px;
+  flex-shrink: 0;
 }
 
-.drawer-close-btn:hover {
-  transform: scale(1.05);
+.drawer-close-btn:hover,
+.drawer-close-btn:focus {
+  background: rgba(255,45,85,0.25);
+  color: #ff2d55;
+  box-shadow: 0 0 12px rgba(255,45,85,0.4);
+  outline: none;
 }
 
-/* Drawer Links */
+/* Drawer nav links */
 .drawer-links {
-  margin-top: 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
+  padding: 12px 16px;
 }
 
 .drawer-link {
-  display: block;
-  padding: 12px 14px;
-  border-radius: 12px;
-  font-family: monospace;
-  color: white;
-  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 14px;
+  border-radius: 10px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  /* Comfortable tap targets */
+  min-height: 48px;
 }
 
-.drawer-link:hover {
-  background: rgba(34, 211, 238, 0.15);
+.drawer-link::before {
+  content: '›';
+  font-size: 1.3rem;
+  color: #00e5ff;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.drawer-link:hover,
+.drawer-link:active {
+  color: #00e5ff;
+  background: rgba(0,229,255,0.06);
+  border-color: rgba(0,229,255,0.2);
   transform: translateX(4px);
 }
 
-/* ✅ Hide mobile drawer completely on desktop */
+.drawer-link:hover::before,
+.drawer-link:active::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════ */
 @media (min-width: 768px) {
-  .mobile-drawer-overlay {
+  /* Show desktop links */
+  .nav-links-desktop {
+    display: flex;
+  }
+  /* Hide hamburger — pure CSS, no Tailwind needed */
+  .hamburger-btn {
     display: none;
+  }
+  /* Completely remove drawer overlay from layout */
+  .mobile-drawer-overlay {
+    display: none !important;
   }
 }

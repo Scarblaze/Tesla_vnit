@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -10,19 +11,19 @@ function Hero() {
   const [isMuted, setIsMuted] = useState(true);
   const [members, setMembers] = useState(0);
   const [projects, setProjects] = useState(0);
+  const [patents, setPatents] = useState(0);
 
   useEffect(() => {
-    AOS.init({ duration: 2000 });
+    AOS.init({ duration: 900, once: true, easing: "ease-out-cubic" });
 
     const handleScroll = () => {
       const video = videoRef.current;
-      if (video) {
-        const rect = video.getBoundingClientRect();
-        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-          video.play();
-        } else {
-          video.pause();
-        }
+      if (!video) return;
+      const rect = video.getBoundingClientRect();
+      if (rect.top >= 0 && rect.bottom <= window.innerHeight + 200) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
       }
     };
 
@@ -30,19 +31,22 @@ function Hero() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Counters
   useEffect(() => {
-    let membersInterval = setInterval(() => {
-      setMembers((prev) => (prev < 50 ? prev + 1 : 50));
-    }, 50);
-
-    let projectsInterval = setInterval(() => {
-      setProjects((prev) => (prev < 20 ? prev + 1 : 20));
-    }, 100);
-
-    return () => {
-      clearInterval(membersInterval);
-      clearInterval(projectsInterval);
+    const animateCount = (setter, target, interval) => {
+      let current = 0;
+      const timer = setInterval(() => {
+        current++;
+        setter(current);
+        if (current >= target) clearInterval(timer);
+      }, interval);
+      return timer;
     };
+
+    const t1 = animateCount(setMembers,  50,  35);
+    const t2 = animateCount(setProjects, 10,  120);
+    const t3 = animateCount(setPatents,  1,   300);
+    return () => { clearInterval(t1); clearInterval(t2); clearInterval(t3); };
   }, []);
 
   const toggleMute = () => {
@@ -54,120 +58,160 @@ function Hero() {
   };
 
   const [text] = useTypewriter({
-    words: ["Innovate", "Design", "Create"],
-    loop: {},
+    words: ["Innovate.", "Design.", "Create.", "Electrify."],
+    loop: true,
+    delaySpeed: 1600,
+    typeSpeed: 80,
+    deleteSpeed: 50,
   });
+
+  const missionData = [
+    {
+      icon: "/assets/bolt.png",
+      title: "Electrifying Innovation",
+      desc: "Sparking creativity in electric mobility and sustainable tech. Students design, build, and innovate through hands-on projects, workshops, and collaborations.",
+    },
+    {
+      icon: "/assets/speed.png",
+      title: "Speeding to Excellence",
+      desc: "Achieving excellence in Formula Student Electric racing and showcasing our cutting-edge designs on a global stage.",
+    },
+    {
+      icon: "/assets/green.png",
+      title: "Green Revolution",
+      desc: "Advancing clean energy solutions and inspiring a new generation of engineers to lead India's shift toward a smarter, greener future.",
+    },
+    {
+      icon: "/assets/engineer.png",
+      title: "Engineering the Future",
+      desc: "Where bold ideas meet cutting-edge tech. We turn imagination into real-world solutions in electric mobility and clean energy.",
+    },
+  ];
 
   return (
     <>
-      {/* HERO SECTION */}
-      <div className="hero-background flex flex-col lg:flex-row py-16 sm:py-24 lg:py-40 px-4 sm:px-8 lg:px-16 gap-10">
-        <div className="flex-1" data-aos="fade-up">
-          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-mono text-center lg:text-left leading-tight">
-            Welcome to <span className="text-blue-100 glitch">Tesla</span>
-          </h1>
+      {/* ═══ HERO ═══ */}
+      <div className="hero-background">
+        <div className="hero-inner">
+          {/* Text side */}
+          <div className="hero-text" data-aos="fade-right">
+            <div className="hero-badge">
+              <span className="hero-badge-dot" />
+              Tesla Club · VNIT Nagpur
+            </div>
 
-          <p className="text-xl sm:text-3xl lg:text-5xl py-3 text-center lg:text-left">
-            Lets{" "}
-            <span className="text-blue-300 font-bold"> {text} </span>
-            <Cursor cursorColor="blue" />
-          </p>
+            <h1 className="hero-title">
+              Welcome to{" "}
+              <span
+                className="glitch"
+                data-text="Tesla"
+              >
+                Tesla
+              </span>
+            </h1>
 
-          <p className="text-sm sm:text-lg lg:text-xl text-gray-300 mt-4 text-center lg:text-left leading-relaxed">
-            We design, build, and revolutionize cutting-edge electrical projects.
-            <br />
-            We push the boundaries of engineering and electrify the future!⚡
-          </p>
-        </div>
+            <p className="hero-typewriter">
+              Let's{" "}
+              <span className="hero-typewriter-word">{text}</span>
+              <Cursor cursorColor="#00e5ff" />
+            </p>
 
-        {/* GIF / IMAGE */}
-        <div className="flex-1 flex justify-center items-center" data-aos="fade-up">
-          <img
-            src="/assets/3d.gif"
-            alt="3d"
-            className="w-full max-w-sm sm:max-w-md lg:max-w-2xl h-auto"
-          />
+            <p className="hero-subtitle">
+              We design, build, and revolutionize cutting-edge electrical
+              engineering projects — pushing the boundaries of innovation and
+              electrifying the future. ⚡
+            </p>
+
+            <div className="hero-cta-group">
+              <Link to="/Projects" className="btn-primary">
+                View Projects
+              </Link>
+              <Link to="/Council" className="btn-secondary">
+                Meet the Team
+              </Link>
+            </div>
+          </div>
+
+          {/* Visual side */}
+          <div className="hero-visual" data-aos="fade-left" data-aos-delay="200">
+            <div className="hero-gif-wrapper">
+              <img
+                src="/assets/3d.gif"
+                alt="3D animation"
+                className="hero-gif"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* STATS SECTION */}
+      {/* ═══ STATS ═══ */}
       <div className="stats-container" data-aos="fade-up">
-        <div className="stat-item text-blue-300">
-          <h2>{members}</h2>
-          <p>Members</p>
+        <div className="stat-item">
+          <span className="stat-number">{members}+</span>
+          <span className="stat-label">Members</span>
         </div>
-        <div className="stat-item text-blue-300">
-          <h2>{projects}</h2>
-          <p>Projects</p>
+        <div className="stat-item">
+          <span className="stat-number">{projects}+</span>
+          <span className="stat-label">Projects</span>
         </div>
-        <div className="stat-item text-blue-300">
-          <h2>∞</h2>
-          <p>Dedication</p>
+        <div className="stat-item">
+          <span className="stat-number">{patents}</span>
+          <span className="stat-label">Patent Filed</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">∞</span>
+          <span className="stat-label">Dedication</span>
         </div>
       </div>
 
-      {/* MISSION SECTION */}
+      {/* ═══ MISSION ═══ */}
       <div className="mission-container" data-aos="fade-up">
-        <h2 className="mission-title font-extrabold text-blue-200 text-2xl sm:text-3xl">
-          Our Mission
-        </h2>
+        <div className="section-header">
+          <div className="section-tag">// Mission</div>
+          <h2 className="section-title">What Drives Us</h2>
+          <p className="section-subtitle">
+            Four pillars that define our purpose and guide every project we undertake
+          </p>
+        </div>
 
         <div className="mission-cards">
-          <div className="mission-card">
-            <img src="/assets/bolt.png" alt="Bolt Icon" className="mission-icon" />
-            <h3>Electrifying Innovation</h3>
-            <p>
-              Tesla Club VNIT Nagpur sparks creativity and engineering excellence by driving
-              innovation in electric mobility and sustainable technology. We empower students
-              to design, build, and innovate through hands-on projects, workshops, and
-              collaborations—fueling the future, one volt at a time.
-            </p>
-          </div>
-
-          <div className="mission-card">
-            <img src="/assets/speed.png" alt="Speed Icon" className="mission-icon" />
-            <h3>Speeding Towards Excellence</h3>
-            <p>
-              We're on a mission to achieve excellence in Formula Student Electric racing,
-              showcasing our cutting-edge designs on a global stage.
-            </p>
-          </div>
-
-          <div className="mission-card">
-            <img src="/assets/green.png" alt="Green Icon" className="mission-icon" />
-            <h3>Driving India's Green Revolution</h3>
-            <p>
-              Tesla Club VNIT Nagpur is committed to advancing sustainable technology and
-              clean energy solutions. Through innovative projects and awareness initiatives,
-              we aim to inspire a new generation of engineers to lead India’s shift towards a
-              greener, smarter future.
-            </p>
-          </div>
-
-          <div className="mission-card">
-            <img src="/assets/engineer.png" alt="Engineer Icon" className="mission-icon" />
-            <h3>Engineering the Future</h3>
-            <p>
-              Tesla Club is where bold ideas meet cutting-edge tech. We innovate in electric
-              mobility and clean energy, turning imagination into real-world solutions that
-              shape tomorrow.
-            </p>
-          </div>
+          {missionData.map((m, i) => (
+            <div className="mission-card" key={i} data-aos="fade-up" data-aos-delay={i * 100}>
+              <div className="mission-icon-wrapper">
+                <img src={m.icon} alt={m.title} className="mission-icon" />
+              </div>
+              <h3>{m.title}</h3>
+              <p>{m.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* VIDEO SECTION */}
+      {/* ═══ VIDEO ═══ */}
       <div className="video-container" data-aos="fade-up">
-        <video
-          className="tesla-video rounded-2xl"
-          ref={videoRef}
-          src="/assets/video.mp4"
-          autoPlay
-          muted
-          loop
-        ></video>
+        <div
+          style={{
+            position: "relative",
+            borderRadius: "16px",
+            overflow: "hidden",
+            border: "1px solid rgba(0,229,255,0.3)",
+            boxShadow: "0 0 40px rgba(0,229,255,0.15), 0 40px 80px rgba(0,0,0,0.6)",
+          }}
+        >
+          <video
+            ref={videoRef}
+            src="/assets/video.mp4"
+            className="tesla-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
+        </div>
 
-        <button className="mute-button" onClick={toggleMute}>
+        <button className="mute-button" onClick={toggleMute} title={isMuted ? "Unmute" : "Mute"}>
           {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
         </button>
       </div>
