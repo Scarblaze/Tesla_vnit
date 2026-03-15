@@ -1,15 +1,12 @@
 {
-  "version": 2,
-  "buildCommand": "cd client && npm install && npm run build",
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "client/dist/**,public/**"
-    }
-  },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/api/index.js"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
