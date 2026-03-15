@@ -1,64 +1,56 @@
 // server/index.js
+
 import path from "path";
-import dotenv from "dotenv";
-dotenv.config();
 import { fileURLToPath } from "url";
 import express from "express";
 import { projects, council, achievements, gallery } from "./data.js";
-import cloudinary from "./config/cloudinary.js";
-import uploadRoutes from "./routes/uploadRoutes.js";
 
-
-
+// Fix __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const PORT = process.env.PORT || 4000;
+
 app.use(express.json());
-// CORS middleware
+
+// ===== SIMPLE CORS (optional) =====
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
-app.use("/api/upload", uploadRoutes);
+// ===== SERVE STATIC IMAGES =====
+app.use(
+  "/assets",
+  express.static(path.join(__dirname, "../public/assets"))
+);
 
-// Serve static files from public directory
-app.use("/assets", express.static(path.join(__dirname, "../public/assets")));
+// ===== API ROUTES =====
 
-const PORT = process.env.PORT || 4000;
+app.get("/api/projects", (req, res) => res.json(projects));
+app.get("/api/council", (req, res) => res.json(council));
+app.get("/api/achievements", (req, res) => res.json(achievements));
+app.get("/api/gallery", (req, res) => res.json(gallery));
 
-// API Routes
-app.get("/api/projects", (req, res) => {
-  res.json(projects);
-});
+// ===== SERVE FRONTEND =====
+// IMPORTANT: your build output is dist/ at root
 
-app.get("/api/council", (req, res) => {
-  res.json(council);
-});
+const distPath = path.join(__dirname, "..", "dist");
 
-app.get("/api/achievements", (req, res) => {
-  res.json(achievements);
-});
+app.use(express.static(distPath));
 
-app.get("/api/gallery", (req, res) => {
-  res.json(gallery);
-});
-
-
-
-
-// Serve static frontend files from client/dist
-const clientDist = path.join(__dirname, "..", "client", "dist");
-app.use(express.static(clientDist, { extensions: ["html", "js", "css"] }));
-
-// Fallback to index.html for client-side routing
+// SPA fallback for React Router
 app.get("*", (req, res) => {
-  res.sendFile(path.join(clientDist, "index.html"));
+  res.sendFile(path.join(distPath, "index.html"));
 });
+
+// ===== START SERVER =====
 
 app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
-
