@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",  
+    "dev": "vite",
     "dev:full": "concurrently -k \"npm run server\" \"npm run client\"",
-    "client": "vite --port 3000",  
+    "client": "vite --port 3000",
     "server": "node server/index.js",
     "build": "vite build",
     "lint": "eslint .",
@@ -17,16 +17,16 @@
     "@radix-ui/react-dialog": "^1.1.5",
     "@tailwindcss/vite": "^4.0.0",
     "aos": "^2.3.4",
+    "concurrently": "^8.2.0",
     "dialog-component": "^0.4.4",
+    "express": "^4.22.1",
     "lucide-react": "^0.474.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.1.3",
     "react-simple-typewriter": "^5.0.1",
-    "tailwindcss": "^4.0.0",
-    "express": "^4.18.2",
-    "concurrently": "^8.2.0"
+    "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
