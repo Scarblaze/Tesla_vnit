@@ -141,7 +141,7 @@ export const council = [
     role: "Project Head",
     phone: "+91-7675806215",
     email: "kgnanesh98@gmail.com",
-    profilePic: "/assets/council/krishna.jpg"
+    profilePic: "/assets/council/krishna.jpeg"
   },
   {
     id: "c12",
