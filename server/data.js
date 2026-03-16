@@ -19,7 +19,7 @@ export const projects = [
     name: "Axis Wind Turbine",
     image: "/assets/projects/axis.jpeg",
     shortDescription: "Vertical axis wind turbine optimized for low wind speed energy generation",
-    people: ["Aditya Mishra", "Mohit Surve", "Subodh Oraon"]
+    people: ["Aditya Mishra", "Mohit Surve", "Tushar Andhale"]
   }
   // add more projects as needed
 ];
